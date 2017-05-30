@@ -1,25 +1,18 @@
 package com.example.entities;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.Embeddable;
+import javax.persistence.OneToOne;
 
+@Embeddable
 public class Bild {
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    
-    @ManyToOne
-    private Speisekarteneintrag speisekarteneintrag;
+    private long base64;
     
 	//needed for JPA
     protected Bild() {
-	
+    	
     }
     
-    public Bild(Speisekarteneintrag speisekarteneintrag){
-    	this.speisekarteneintrag = speisekarteneintrag;
+    public Bild(long base64) { 
+    	this.base64 = base64;
     }
-
 }

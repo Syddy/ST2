@@ -1,19 +1,25 @@
 package com.example.entities;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 
+@Entity
 public class Rezept {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    
-    @OneToOne
-	private Speisekarteneintrag speisekarteneintrag;
+     
+	@OneToMany(mappedBy = "rezept", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<Speisekarteneintrag> speisekarteneintrag;
 	
-    private String name;
+    private String name; 
     
     private String zubereitungsanweisung;
     
@@ -22,12 +28,11 @@ public class Rezept {
 	
     }
     
-    public Rezept(String name, String zubereitungsanweisung, Speisekarteneintrag speisekarteneintrag){
-    	this.name = name;
+    public Rezept(String name, String zubereitungsanweisung){
+    	this.name = name; 
     	this.zubereitungsanweisung = zubereitungsanweisung;
-    	this.speisekarteneintrag = speisekarteneintrag;
     }
-    
+     
     public String getName() {
 		return name;
 	}
@@ -42,6 +47,19 @@ public class Rezept {
 
 	public void setZubereitungsanweisung(String zubereitungsanweisung) {
 		this.zubereitungsanweisung = zubereitungsanweisung;
+	}
+	
+	public Set<Speisekarteneintrag> getSpeisekarteneintrag() {
+		return speisekarteneintrag;
+	}
+
+	public void setSpeisekarteneintrag(Set<Speisekarteneintrag> speisekarteneintrag) {
+		this.speisekarteneintrag = speisekarteneintrag;
+	}
+	
+	@Override
+	public String toString(){
+		return "Rezept: ID: " + id + ", Name: " + name + "\n Zubereitung: " + zubereitungsanweisung;
 	}
     
 }
