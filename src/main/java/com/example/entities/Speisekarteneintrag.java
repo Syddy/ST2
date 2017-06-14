@@ -1,6 +1,7 @@
 package com.example.entities;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Speisekarteneintrag {
 	@Id
@@ -23,6 +26,7 @@ public class Speisekarteneintrag {
     private Set<Speisekarte> speisekarte = new HashSet<>();
     
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private Rezept rezept; 
 	
     @Embedded
@@ -47,7 +51,7 @@ public class Speisekarteneintrag {
 	public Rezept getRezept() {
 		return rezept;
 	}
-	public void  setRezept(Rezept rezept){
+	public void setRezept(Rezept rezept){
 		this.rezept= rezept;
 	}
 

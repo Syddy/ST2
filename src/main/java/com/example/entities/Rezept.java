@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Rezept {
 	@Id
@@ -17,6 +19,7 @@ public class Rezept {
     private long id;
      
 	@OneToMany(mappedBy = "rezept", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonBackReference
 	private Set<Speisekarteneintrag> speisekarteneintrag;
 	
     private String name; 
