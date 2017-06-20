@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Speisekarte {
@@ -18,7 +19,7 @@ public class Speisekarte {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
       
-	@ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER) 
+	@OneToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER) 
     private Set<Speisekarteneintrag> eintraege = new HashSet<>();
      
 	private String name;
@@ -51,7 +52,7 @@ public class Speisekarte {
 	public String toString(){
 		String s =  "Speisekarte: ID:" + id + ", Name: " + name + "\n";
 		for(Speisekarteneintrag e : eintraege){
-			s += "\t" + eintraege.toString() + "\n";
+			s += "\t" + e.toString() + "\n";
 		}
 		return s;
 	}

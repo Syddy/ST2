@@ -22,8 +22,8 @@ public class Speisekarteneintrag {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 	
-	@ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER) 
-    private Set<Speisekarte> speisekarte = new HashSet<>();
+	@ManyToOne(cascade=CascadeType.MERGE, fetch = FetchType.EAGER) 
+    private Speisekarte speisekarte;
     
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonManagedReference
@@ -59,7 +59,7 @@ public class Speisekarteneintrag {
 		this.preis = preis;
 	} 
 	 
-	public Set<Speisekarte> getSpeisekarte() {
+	public Speisekarte getSpeisekarte() {
 		return speisekarte; 
 	} 
 	

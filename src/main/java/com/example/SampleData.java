@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.entities.Speisekarte;
 import com.example.factories.KundeFactory;
+import com.example.factories.SpeisekartenFactory;
 import com.example.factories.SpeisekarteneintragFactory;
 import com.example.repositories.KundeRepository;
 import com.example.repositories.SpeisekarteRepository;
@@ -16,25 +17,25 @@ import com.example.repositories.SpeisekarteneintragRepository;
 public class SampleData implements ApplicationListener<ContextRefreshedEvent> {  
     
     @Autowired
-    private KundeRepository kundeRepository; 
+    private KundeRepository kundeRepo; 
     @Autowired
-    private SpeisekarteneintragRepository speisekarteneintragRepo; 
+    private SpeisekarteneintragRepository eintragRepo; 
     @Autowired
-    private SpeisekarteRepository speisekarteRepo; 
+    private SpeisekarteRepository kartenRepo;
+    @Autowired
+    private SpeisekartenFactory kartenFactory;
     
     @Override
     public void onApplicationEvent(ContextRefreshedEvent arg0) {
  
-    	Speisekarte speisekarte = new Speisekarte("Delicious");
-    	speisekarteRepo.save(speisekarte);
+    	Speisekarte speisekarte = kartenFactory.createSpeisekarte("Delicious");
+    	eintragRepo.save(speisekarte.getEintraege());
+    	kartenRepo.save(speisekarte);
     	
-    	kundeRepository.save(new KundeFactory().createKunde("Mustermann", "Max"));
-
-    	speisekarteneintragRepo.save(new SpeisekarteneintragFactory().createSpeisekarteneintrag("Gullasch", "Kochen", (long)234453425, (float)33.3, speisekarte));
+    	kundeRepo.save(new KundeFactory().createKunde("Mustermann", "Max"));
     	
-    	System.out.println(kundeRepository.findByName("Mustermann").toString());
-    	System.out.println(speisekarteRepo.findByName("Delicious").toString());
-    	System.out.println(speisekarteneintragRepo.findByPreis((float)33.3).toString());
+    	System.out.println(kundeRepo.findByName("Mustermann").toString());
+    	System.out.println(kartenRepo.findByName("Delicious").toString());
     }
      
 
