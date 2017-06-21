@@ -26,4 +26,11 @@ public class SpeisekartenFactory {
 		
 		return karte;
 	}
+	
+	public Speisekarte updateSpeisekarte(Speisekarte karte, Set<Speisekarteneintrag> eintraege) {
+		Speisekarte fertigeKarte = null;
+		karte.setEintraege(eintraege);
+		fertigeKarte = karte;
+		return fertigeKarte;
+	}
 }
