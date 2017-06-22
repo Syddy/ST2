@@ -51,7 +51,7 @@ public class Speisekarte {
 	public String toString(){
 		String s =  "Speisekarte: ID:" + id + ", Name: " + name + "\n";
 		for(Speisekarteneintrag e : eintraege){
-			s += "\t" + eintraege.toString() + "\n";
+			s += "\t" + e.toString() + "\n";
 		}
 		return s;
 	}

@@ -16,12 +16,26 @@ public class SpeisekartenFactory {
     public SpeisekartenFactory() {}
     
 	public Speisekarte createSpeisekarte(String name) {
-		Speisekarte karte = new Speisekarte(name);
-		
+		Speisekarte karte = new Speisekarte(name);		
 		Set<Speisekarteneintrag> eintraege = new HashSet<>();
-		eintraege.add(new Speisekarteneintrag(5.50f, new Rezept("Kartoffelbrei", "Man nehme ..."), new Bild(12345l)));
-		eintraege.add(new Speisekarteneintrag(6.20f, new Rezept("Nudelsalat", "200g Tomaten.. "), new Bild(54321l)));
-		eintraege.add(new Speisekarteneintrag(13.30f, new Rezept("Luftkottlet", "abcdefgh.."), new Bild(44434l)));
+		
+		{
+			Set<Rezept> rezepte = new HashSet<>();
+			rezepte.add(new Rezept("Kartoffelbrei", "Man nehme ..."));
+			rezepte.add(new Rezept("Blumenkohl-Schnitzel", "1KG Blumenkohl..."));
+			eintraege.add(new Speisekarteneintrag(15.50f, rezepte, new Bild(12345l)));
+		}
+		{
+			Set<Rezept> rezepte = new HashSet<>();
+			rezepte.add(new Rezept("Nudelsalat", "200g Tomaten.. "));
+			eintraege.add(new Speisekarteneintrag(6.20f, rezepte, new Bild(54321l)));
+		}
+		{
+			Set<Rezept> rezepte = new HashSet<>();
+			rezepte.add(new Rezept("Luftkottlet", "abcdefgh.."));
+			rezepte.add(new Rezept("Nebelsoße", "zyxwvu.."));
+			eintraege.add(new Speisekarteneintrag(13.30f, rezepte, new Bild(44434l)));
+		}
 		karte.setEintraege(eintraege);
 		
 		return karte;
