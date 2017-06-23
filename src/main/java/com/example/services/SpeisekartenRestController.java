@@ -41,11 +41,20 @@ public class SpeisekartenRestController {
 	        @Autowired
 	        private SpeisekarteRepository repositoryKarte;
 
+//	        @RequestMapping(method = RequestMethod.GET)
+//	        public Set<Speisekarteneintrag> getAllSpeisekarteneintraege(){
+//	        	Speisekarte targetKarte = repositoryKarte.findByName("Delicious");
+//	        	Set<Speisekarteneintrag> temporaryEintraege = targetKarte.getEintraege();
+//	            return temporaryEintraege;
+//	        }
+
 	        @RequestMapping(method = RequestMethod.GET)
 	        public List<Speisekarteneintrag> getAllSpeisekarteneintraege(){
-	            return (List<Speisekarteneintrag>) repositoryEintrag.findAll();
+	        	List<Speisekarteneintrag> temp = (List<Speisekarteneintrag>) repositoryEintrag.findAll();
+	            return temp;
+	            		
 	        }
-	        
+
 	        
 //	        @RequestMapping(method = RequestMethod.GET)
 //	        public ResponseEntity<Collection<Speisekarteneintrag>> getAllPies(){

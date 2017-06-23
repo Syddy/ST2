@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -23,7 +24,8 @@ public class Speisekarteneintrag {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 	
-	@ManyToOne(cascade=CascadeType.MERGE, fetch = FetchType.EAGER) 
+	@ManyToOne(cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
+	@JsonBackReference
     private Speisekarte speisekarte;
     
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

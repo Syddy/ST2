@@ -19,7 +19,7 @@ public class Rezept {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
      
-	@ManyToMany(mappedBy = "rezepte", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@JsonBackReference
 	private Set<Speisekarteneintrag> speisekarteneintrag;
 	
