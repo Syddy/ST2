@@ -8,20 +8,17 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Rezept {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-     
-	@OneToMany(mappedBy = "rezept", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonBackReference
-	private Set<Speisekarteneintrag> speisekarteneintrag;
 	
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER) 
+	private Set<Speisekarteneintrag> eintraege; 
+	 
     private String name; 
     
     private String zubereitungsanweisung;
@@ -53,11 +50,11 @@ public class Rezept {
 	}
 	
 	public Set<Speisekarteneintrag> getSpeisekarteneintrag() {
-		return speisekarteneintrag;
-	}
+		return eintraege;
+	}  
 
 	public void setSpeisekarteneintrag(Set<Speisekarteneintrag> speisekarteneintrag) {
-		this.speisekarteneintrag = speisekarteneintrag;
+		this.eintraege = speisekarteneintrag;
 	}
 	
 	@Override

@@ -3,6 +3,7 @@ package com.example.entities;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
@@ -14,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -22,12 +24,12 @@ public class Speisekarteneintrag {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 	
-	@ManyToOne(cascade=CascadeType.MERGE, fetch = FetchType.EAGER) 
-    private Speisekarte speisekarte;
+	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+	@JsonBackReference
+    private Speisekarte speisekarte; 
     
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JsonManagedReference
-	private Rezept rezept; 
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	private Set<Rezept> rezepte; 
 	
     @Embedded
     private Bild bild;
@@ -40,19 +42,31 @@ public class Speisekarteneintrag {
     
     public Speisekarteneintrag(float preis, Rezept rezept, Bild bild){
     	this.preis = preis;
-    	this.rezept = rezept; 
+    	this.rezepte = new HashSet<>();
+    	this.rezepte.add(rezept);
     	this.bild = bild;
+    }
+    
+    public Speisekarteneintrag(float preis, Bild bild){
+    	this.preis = preis;
+    	this.bild = bild;  
+    }
+    
+    public Speisekarteneintrag(float preis, Set<Rezept> rezept, Bild bild){
+    	this.preis = preis;
+    	this.rezepte = rezept;
+    	this.bild = bild;  
     }
 
 	public float getPreis() {
 		return preis;
 	}
 	 
-	public Rezept getRezept() {
-		return rezept;
+	public Set<Rezept> getRezept() {
+		return rezepte;
 	}
-	public void setRezept(Rezept rezept){
-		this.rezept= rezept;
+	public void setRezept(Set<Rezept> rezept){
+		this.rezepte = rezept; 
 	}
 
 	public void setPreis(float preis) {
@@ -65,7 +79,7 @@ public class Speisekarteneintrag {
 	
 	@Override
 	public String toString() {
-    	return "Eintrag: ID: " + id + ", Preis: " + preis + ", Rezept: " + rezept.getName(); 
+    	return "Eintrag: ID: " + id + ", Preis: " + preis + ", Rezepte: " + rezepte.stream().map(r -> r.getName()).collect(Collectors.joining(", ")); 
     }
 
 }

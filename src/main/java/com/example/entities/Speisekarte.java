@@ -13,13 +13,16 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Speisekarte {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
       
-	@OneToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER) 
+	@OneToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
+	@JsonManagedReference
     private Set<Speisekarteneintrag> eintraege = new HashSet<>();
      
 	private String name;
@@ -48,6 +51,7 @@ public class Speisekarte {
 	public void setEintraege(Set<Speisekarteneintrag> eintraege) {
 		this.eintraege = eintraege;
 	}
+	
 	@Override
 	public String toString(){
 		String s =  "Speisekarte: ID:" + id + ", Name: " + name + "\n";

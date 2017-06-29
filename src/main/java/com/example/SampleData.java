@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import com.example.entities.Speisekarte;
 import com.example.factories.KundeFactory;
 import com.example.factories.SpeisekartenFactory;
-import com.example.factories.SpeisekarteneintragFactory;
 import com.example.repositories.KundeRepository;
 import com.example.repositories.SpeisekarteRepository;
 import com.example.repositories.SpeisekarteneintragRepository;
